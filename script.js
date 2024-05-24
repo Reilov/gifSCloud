@@ -1,9 +1,11 @@
-const apiKey = '3hrZPDbT3eFDxIqly3GcFgr7I9cgVYEQ';
-const gifsBlock = document.querySelector('.gifs');
-const preloader = document.querySelector('.preloader');
-let limit = 27;
-let offset = 0;
-const cacheTTL = 30 * 60 * 1000;
+const apiKey = '3hrZPDbT3eFDxIqly3GcFgr7I9cgVYEQ',
+      gifsBlock = document.querySelector('.gifs'),
+      preloader = document.querySelector('.preloader'),
+      buttonSearch = document.querySelector('.search__button'),
+      cacheTime = 30 * 60 * 1000; // 30 минут
+let limit = 27,
+    offset = 0;
+
 
 const renderGif = (event) =>{
     event.preventDefault();
@@ -13,9 +15,7 @@ const renderGif = (event) =>{
     loadMoreGifs(true)
 }
 
-
 let loadMoreGifs = ( reset = false) => {
-    
     let searchValue = document.querySelector('.search').value,
         url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${searchValue}&limit=${limit}&offset=${offset}`;
     
@@ -31,16 +31,11 @@ let loadMoreGifs = ( reset = false) => {
         .then((data)=>{
             let gifsData = data.data
 
-            console.log(gifsData);
-            // gifsBlock.innerHTML = '';
-
             if(gifsData.length === 0){
                 preloader.classList.remove('preloader__show');
                 gifsBlock.style.display = 'flex';
                 gifsBlock.innerHTML = '<div class="error">Ничего не нашлось по Вашему запросу :(</div>';
             }
-
-           
 
             gifsData.forEach(gif => {
                 let iframeWrapper = document.createElement('div');
@@ -48,13 +43,8 @@ let loadMoreGifs = ( reset = false) => {
                 let iframe = document.createElement('img');
                 iframe.setAttribute('src', gif.images.downsized_medium.url)
                 iframeWrapper.append(iframe)
-
-
                 gifsBlock.append(iframeWrapper)
-                
             });
-
-            
 
             if (reset) {
                 preloader.classList.remove('preloader__show');
@@ -68,10 +58,10 @@ let loadMoreGifs = ( reset = false) => {
             preloader.classList.remove('preloader__show')
         })
 }
-document.querySelector('.search__button').addEventListener('click', renderGif)
+buttonSearch.addEventListener('click', renderGif)
 
 window.addEventListener('scroll', () => {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
         loadMoreGifs();
     }
 });
