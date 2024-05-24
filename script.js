@@ -3,6 +3,7 @@ const gifsBlock = document.querySelector('.gifs');
 const preloader = document.querySelector('.preloader');
 let limit = 27;
 let offset = 0;
+const cacheTTL = 30 * 60 * 1000;
 
 const renderGif = (event) =>{
     event.preventDefault();
@@ -45,8 +46,7 @@ let loadMoreGifs = ( reset = false) => {
                 let iframeWrapper = document.createElement('div');
                 iframeWrapper.classList.add('iframe__wrapper')
                 let iframe = document.createElement('img');
-                iframe.setAttribute('src', gif.images.downsized_medium
-                .url)
+                iframe.setAttribute('src', gif.images.downsized_medium.url)
                 iframeWrapper.append(iframe)
 
 
@@ -71,7 +71,7 @@ let loadMoreGifs = ( reset = false) => {
 document.querySelector('.search__button').addEventListener('click', renderGif)
 
 window.addEventListener('scroll', () => {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
         loadMoreGifs();
     }
 });
