@@ -1,3 +1,5 @@
+// реализовать подгрузку из кеша
+
 const apiKey = '3hrZPDbT3eFDxIqly3GcFgr7I9cgVYEQ',
       gifsBlock = document.querySelector('.gifs'),
       preloader = document.querySelector('.preloader'),

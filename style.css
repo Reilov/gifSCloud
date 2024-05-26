@@ -59,6 +59,7 @@ h1{
     font-size: 16px;
 }
 .search__button{
+    cursor: pointer;
     font-size: 18px;
     border: unset;
     outline: none;
