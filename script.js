@@ -63,7 +63,7 @@ const loadMoreGifs = (reset = false) => {
                 setCachedData(cacheKey, gifsData);
 
                 if (gifsData.length === 0) {
-                    allGifsLoadedpreloader.classList.remove('preloader__show');
+                    preloader.classList.remove('preloader__show');
                     gifsBlock.style.display = 'flex';
                     gifsBlock.innerHTML = '<div class="error">Ничего не нашлось по Вашему запросу :(</div>';
                 }
@@ -76,6 +76,7 @@ const loadMoreGifs = (reset = false) => {
                 if (reset) {
                     preloader.classList.remove('preloader__show');
                     gifsBlock.style.display = 'flex';
+                    gifsBlock.innerHTML = '<div class="error">Ничего не нашлось по Вашему запросу :(</div>';
                 }
                 isLoading = false;
             });
